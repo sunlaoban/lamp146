@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>图片轮播按钮操作</title>
+	<style type="text/css">
+	*{
+		padding:0px;
+		margin:0px;
+	}
+	#left{
+		position:fixed;
+		left:20px;
+		top:150px;
+		cursor:pointer;
+	}
+	#right{
+		position:fixed;
+		left:420px;
+		top:150px;
+		cursor:pointer;
+	}
+	#did1{
+		width:30px;
+		height:30px;
+		/*border:1px solid red;*/
+		background-color:orange;
+		text-align:center;
+		line-height:30px;
+		position:fixed;
+		left:420px;
+		top:230px;
+		cursor:pointer;
+		border-radius:15px;
+		/*margin-left:20px;*/
+	}
+	</style>
+</head>
+<body>
+	<div id="left" onclick="fun('-')"><img src="images/left.png" width="30px"></div>
+	<img src="images/1.jpg" name="img">
+	<img src="images/2.jpg" name="img" style="display:none">
+	<img src="images/3.jpg" name="img" style="display:none">
+	<img src="images/4.jpg" name="img" style="display:none">
+	<img src="images/5.jpg" name="img" style="display:none">
+	<div onclick="fun(0)"  name="anniu" id="did1"></div>
+	<div onclick="fun(1)"  name="anniu" id="did1"></div>
+	<div onclick="fun(2)"  name="anniu" id="did1"></div>
+	<div onclick="fun(3)"  name="anniu" id="did1"></div>
+	<div onclick="fun(4)"  name="anniu" id="did1"></div>
+	<div id="right" onclick="fun('+')"><img src="images/right.png" width="30px"></div>
+</body>
+<script type="text/javascript">
+	var m=0;
+	//获取图片
+	var imgid=document.getElementsByName("img");
+	//获取=按钮
+	anniu=document.getElementsByName("anniu");
+	x=150;
+	//遍历
+	for(i=0;i<anniu.length;i++){
+		anniu[i].style.left=x+"px";
+		anniu[i].innerHTML=i+1;
+		x+=50;
+	}
+	//固定图片
+	function show(m){
+		// 遍历图片
+		for(i=0;i<imgid.length;i++){
+			if(i==m){
+				imgid[i].style.display="block";
+			}else{
+				imgid[i].style.display="none";
+			}
+		}
+	}
+	//按钮函数
+	function fun(a){
+		clearTimeout(mytime);
+		if(isNaN(a)){
+			switch(a){
+			case '-':
+				m=m-2;
+				if(m<-1){
+					m=3;
+				}
+			break;
+			case'+':
+				m=m;
+				if(m>4){
+					m=0;
+				}
+			break;
+		}
+		}else{
+			m=a-1;
+		}
+	running();
+	}
+	//运行
+	function running(){
+		m++;
+		if(m==imgid.length){
+			m=0;
+		}
+		show(m);
+		mytime=setTimeout(running,2000);
+	}
+	running();
+	//获取div节点
+	left=document.getElementById("left");
+	right=document.getElementById("right");
+	left.onmouseover=function(){
+		this.style.backgroundColor="#ccc";
+	}
+	left.onmouseout=function(){
+		this.style.backgroundColor="white";
+	}
+	right.onmouseover=function(){
+		this.style.backgroundColor="#ccc";
+	}
+	right.onmouseout=function(){
+		this.style.backgroundColor="white";
+	}
+</script>
+</html>
